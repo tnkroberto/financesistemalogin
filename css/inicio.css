@@ -1,0 +1,34 @@
+body{
+    background-color: black;
+}
+
+.carousel-item img {
+    height: 700px; /* Altura das imagens no carrossel */
+    object-fit: cover; /* Redimensionar e centralizar a imagem */
+}
+
+.carousel-inner {
+    max-width: 100%; /* Largura máxima do carrossel */
+    height: 100vh; /* Altura total da viewport */
+}
+
+.carousel-item {
+    text-align: center; /* Centralizar o texto */
+}
+
+.carousel-caption {
+    position: absolute; /* Posição absoluta para centralizar o conteúdo */
+    top: 50%; /* Alinhar no meio verticalmente */
+    left: 50%; /* Alinhar no meio horizontalmente */
+    transform: translate(-50%, -50%); /* Centralizar */
+    color: #fff; /* Cor do texto */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra do texto */
+}
+
+.carousel-caption h5 {
+    font-size: 2.5rem; /* Tamanho da fonte do título */
+}
+
+.carousel-caption p {
+    font-size: 1.5rem; /* Tamanho da fonte do parágrafo */
+}

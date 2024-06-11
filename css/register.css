@@ -1,0 +1,67 @@
+.cadastro-body {
+    background-color: #333;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.cadastro-container {
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #222;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.cadastro-title {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    text-align: left;
+}
+
+.form-input {
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline:none;
+}
+
+.cadastro-button {
+    background-color: cyan;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.cadastro-button:hover {
+    background-color: lightcyan;
+}
+
+.login-link {
+    margin-top: 20px;
+}
+
+.login-anchor {
+    color: cyan;
+    text-decoration: none;
+}
+
+.login-anchor:hover {
+    text-decoration: underline;
+}
+
+.cadastro-logo {
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}

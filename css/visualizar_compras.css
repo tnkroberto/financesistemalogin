@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: black;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: black;
+    color: white;
+    border: 2px solid cyan;
+    border-radius: 5px;
+}
+
+.container h2 {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid cyan;
+}
+
+table th {
+    background-color: cyan;
+    color: black;
+    text-align: left;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #333;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #444;
+}
+
+.necessidade {
+    background-color: #ff7f0e; /* Laranja */
+}
+
+.desejos {
+    background-color: #2ca02c; /* Verde */
+}
+
+.poupanca {
+    background-color: #1f77b4; /* Azul */
+}
+
+.dividas {
+    background-color: #d62728; /* Vermelho */
+}
+
+.delete-button {
+    background-color: cyan;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 3px;
+    display: block;
+    margin: 0 auto;
+}
+
+.delete-button:hover {
+    background-color: lightcyan;
+}
+
+.saldo-container {
+    background-color: #333; 
+    color: white; 
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center; 
+}
+
+.saldo-container p {
+    margin-bottom: 10px;
+}
+
+.saldo-container button {
+    background-color: cyan;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.saldo-container button:hover {
+    background-color: lightcyan;
+}
