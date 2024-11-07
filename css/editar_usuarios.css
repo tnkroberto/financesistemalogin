@@ -56,4 +56,37 @@ body {
 
 .container button:hover {
     background-color: lightcyan;
+
+}
+.container {
+    display: flex;
+    justify-content: flex-start; /* Alinha os itens à esquerda */
+    align-items: flex-start; /* Alinha os itens ao topo */
+    flex-direction: column; /* Empilha os elementos verticalmente */
+    padding: 20px;
+}
+
+.user-data {
+    margin-bottom: 20px;
+}
+
+.user-photo {
+    margin-bottom: 20px;
+}
+
+.salary-change {
+    margin-top: 20px;
+}
+
+/* Opcional: Estilo para o formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    width: 150px;
+    padding: 10px;
+    margin-top: 10px;
 }

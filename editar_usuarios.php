@@ -8,8 +8,8 @@ if (!isset($_SESSION['user_nome'])) {
 include 'config.php';
 $user_nome = $_SESSION['user_nome'];
 
-// Obter informações do usuário
-$query = "SELECT * FROM usuario WHERE user_nome = '$user_nome'";
+// Obter informações do usuário, incluindo profissão, meta e foto
+$query = "SELECT * FROM usuario WHERE nome = '$user_nome'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 
@@ -18,16 +18,34 @@ $query = "SELECT * FROM salario WHERE user_nome = '$user_nome'";
 $result = mysqli_query($conn, $query);
 $salario = mysqli_fetch_assoc($result);
 
+// Atualizar salário e outras informações
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $novo_salario = $_POST['novo_salario'];
-
-    // Atualizar salário
-    $query = "UPDATE salario SET sal_valor = '$novo_salario' WHERE user_nome = '$user_nome'";
-    if (mysqli_query($conn, $query)) {
-        // Atualizar a variável $salario para exibir o novo valor na página
-        $salario['sal_valor'] = $novo_salario;
+    $nova_profissao = $_POST['nova_profissao'];
+    $nova_meta = $_POST['nova_meta'];
+    
+    // Processar foto (se for enviada)
+    if (isset($_FILES['nova_foto']) && $_FILES['nova_foto']['error'] == 0) {
+        $extensao = pathinfo($_FILES['nova_foto']['name'], PATHINFO_EXTENSION);
+        $foto_nome = 'uploads/' . uniqid() . '.' . $extensao;
+        move_uploaded_file($_FILES['nova_foto']['tmp_name'], $foto_nome);
     } else {
-        echo "Erro ao atualizar o salário: " . mysqli_error($conn);
+        $foto_nome = $user['foto']; // Manter a foto atual caso não haja upload
+    }
+
+    // Atualizar dados no banco
+    $query = "UPDATE salario SET sal_valor = '$novo_salario' WHERE user_nome = '$user_nome'";
+    mysqli_query($conn, $query);
+
+    $query = "UPDATE usuario SET profissao = '$nova_profissao', meta = '$nova_meta', foto = '$foto_nome' WHERE nome = '$user_nome'";
+    if (mysqli_query($conn, $query)) {
+        // Atualizar as variáveis
+        $salario['sal_valor'] = $novo_salario;
+        $user['profissao'] = $nova_profissao;
+        $user['meta'] = $nova_meta;
+        $user['foto'] = $foto_nome;
+    } else {
+        echo "Erro ao atualizar as informações: " . mysqli_error($conn);
     }
 }
 ?>
@@ -57,12 +75,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="container">
         <h2>Dados do Usuário</h2>
-        <p><strong>Nome de Usuário:</strong> <?php echo $user['user_nome']; ?></p>
-        <p><strong>Email:</strong> <?php echo $user['user_email']; ?></p>
+        <p><strong>Nome de Usuário:</strong> <?php echo $user['nome']; ?></p>
+        <p><strong>Email:</strong> <?php echo $user['email']; ?></p>
         <p><strong>Salário:</strong> R$ <?php echo $salario['sal_valor']; ?></p>
-        <form action="#" method="post">
+        <p><strong>Profissão:</strong> <?php echo $user['profissao']; ?></p>
+        <p><strong>Meta:</strong> <?php echo $user['meta']; ?></p>
+        
+        <!-- Exibir Foto Atual -->
+        <p><strong>Foto de Perfil:</strong></p>
+        <?php if ($user['foto']): ?>
+            <img src="<?php echo $user['foto']; ?>" alt="Foto de Perfil" width="100px">
+        <?php else: ?>
+            <p>Sem foto de perfil.</p>
+        <?php endif; ?>
+
+        <form action="#" method="post" enctype="multipart/form-data">
             <label for="novo_salario">Novo Salário:</label>
             <input type="number" step="0.01" id="novo_salario" name="novo_salario" required><br>
+
+            <label for="nova_profissao">Profissão:</label>
+            <input type="text" id="nova_profissao" name="nova_profissao" value="<?php echo $user['profissao']; ?>"><br>
+
+            <label for="nova_meta">Meta:</label>
+            <textarea id="nova_meta" name="nova_meta"><?php echo $user['meta']; ?></textarea><br>
+
+            <label for="nova_foto">Nova Foto de Perfil:</label>
+            <input type="file" name="nova_foto" id="nova_foto"><br><br>
+
             <button type="submit">Salvar</button>
         </form>
     </div>

@@ -1,21 +1,23 @@
 <?php
 session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include 'config.php';
 
-    $user_nome = $_POST['user_nome'];
+    $user_email = $_POST['user_email'];
     $user_senha = $_POST['user_senha'];
 
-    // Buscar usuário no banco de dados
-    $query = "SELECT * FROM usuario WHERE user_nome = '$user_nome'";
+    // Buscar usuário no banco de dados com base no e-mail
+    $query = "SELECT * FROM usuario WHERE email = '$user_email'";
     $result = mysqli_query($conn, $query);
     $user = mysqli_fetch_assoc($result);
 
     if ($user) {
         // Verificar a senha
-        if (password_verify($user_senha, $user['user_senha'])) {
+        if (password_verify($user_senha, $user['senha'])) {
             // Senha correta, iniciar sessão
-            $_SESSION['user_nome'] = $user['user_nome'];
+            $_SESSION['user_nome'] = $user['nome'];
+            $_SESSION['user_email'] = $user['email'];  // Salvar o e-mail também, caso necessário
             header("Location: inicio.php");
             exit;
         } else {
@@ -26,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -40,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2 class="login-title"><img src="image/logo.png" alt="Logo" class="login-logo"> Login</h2>
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="login-form">
             <div class="form-group">
-                <label for="user_nome" class="form-label">Nome de Usuário:</label>
-                <input type="text" id="user_nome" name="user_nome" class="form-input" required>
+                <label for="user_email" class="form-label">E-mail:</label>
+                <input type="email" id="user_email" name="user_email" class="form-input" required>
             </div>
 
             <div class="form-group">

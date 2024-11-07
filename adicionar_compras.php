@@ -13,14 +13,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hist_valor = $_POST['hist_valor'];
     $tipo_compra = $_POST['tipo_compra'];
 
-    // Inserir nova compra na tabela historico
-    $query = "INSERT INTO historico (user_nome, hist_nome, hist_valor, hist_data, tipo_compra) VALUES ('$user_nome', '$hist_nome', '$hist_valor', CURDATE(), '$tipo_compra')";
-    if (mysqli_query($conn, $query)) {
+    // Inserir nova compra na tabela historico usando prepared statements
+    $query = "INSERT INTO historico (user_nome, hist_nome, hist_valor, hist_data, tipo_compra) VALUES (?, ?, ?, CURDATE(), ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ssds", $user_nome, $hist_nome, $hist_valor, $tipo_compra);
+
+    if ($stmt->execute()) {
         header("Location: visualizar_compras.php");
         exit;
     } else {
-        echo "Erro ao adicionar compra: " . mysqli_error($conn);
+        echo "Erro ao adicionar compra: " . $stmt->error;
     }
+
+    $stmt->close();
 }
 ?>
 <!DOCTYPE html>
@@ -35,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <header class="header">
-        <div class="logo"><img src="image/logo.png"></div>
+        <div class="logo"><img src="image/logo.png" alt="Logo"></div>
         <nav>
             <ul class="menu">
                 <li><a href="inicio.php">Início</a></li>
@@ -48,8 +53,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
     <div class="container">
+        <h1>Bem-vindo, <?php echo htmlspecialchars($user_nome); ?>!</h1>
         <h2>Adicionar Compras</h2>
-        <form action="#" method="post">
+        <form action="" method="post">
             <label for="hist_nome">Nome da Compra:</label>
             <input type="text" id="hist_nome" name="hist_nome" required><br>
 

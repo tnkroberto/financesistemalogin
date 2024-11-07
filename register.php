@@ -19,7 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashed_senha = password_hash($user_senha, PASSWORD_DEFAULT);
 
     // Inserir usuário
-    $query_usuario = "INSERT INTO usuario (user_nome, user_email, user_senha) VALUES ('$user_nome', '$user_email', '$hashed_senha')";
+    $query_usuario = "INSERT INTO usuario (nome, email, senha) VALUES ('$user_nome', '$user_email', '$hashed_senha')";
+
     if (mysqli_query($conn, $query_usuario)) {
         // Inserir salário
         $query_salario = "INSERT INTO salario (user_nome, sal_valor) VALUES ('$user_nome', '$sal_valor')";
@@ -80,3 +81,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 </html>
+
+
