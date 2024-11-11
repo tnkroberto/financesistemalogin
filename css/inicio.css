@@ -9,39 +9,6 @@ body {
     text-align: center; /* Centraliza o texto */
 }
 
-.carousel-item img {
-    height: 700px; /* Altura das imagens no carrossel */
-    object-fit: cover; /* Redimensiona e centraliza as imagens */
-}
-
-.carousel-inner {
-    max-width: 100%; /* Largura máxima do carrossel */
-    height: 100vh; /* Altura total da viewport */
-}
-
-.carousel-item {
-    text-align: center; /* Centraliza o texto do carrossel */
-}
-
-.carousel-caption {
-    position: absolute; /* Posição absoluta para centralizar o conteúdo */
-    top: 50%; /* Alinhar no meio verticalmente */
-    left: 50%; /* Alinhar no meio horizontalmente */
-    transform: translate(-50%, -50%); /* Centraliza exatamente no centro */
-    color: #20a8d8; /* Cor azul para a mensagem */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra do texto */
-}
-
-.carousel-caption h5 {
-    font-size: 2.5rem; /* Tamanho da fonte do título */
-    color: #20a8d8; /* Cor azul para o título */
-}
-
-.carousel-caption p {
-    font-size: 1.5rem; /* Tamanho da fonte do parágrafo */
-    color: #206ad8; /* Cor azul para o parágrafo */
-}
-
 .container {
     background: #555555; /* Cor de fundo do quadrado (cinza) */
     width: 450px; /* Largura do container */
@@ -58,4 +25,36 @@ body {
     padding: 1.3rem; /* Espaçamento interno */
     margin-bottom: 0.4rem; /* Margem inferior */
     color: #20a8d8; /* Cor azul para o título */
+}
+
+.btn-dashboard, .btn-logout {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: white;
+    background-color: #20a8d8;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-dashboard:hover, .btn-logout:hover {
+    background-color: #0062cc; /* Um tom mais escuro para o hover */
+    transform: scale(1.05); /* Leve aumento do tamanho */
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .form-title {
+        font-size: 1.2rem;
+    }
+
+    .btn-dashboard, .btn-logout {
+        font-size: 1rem; /* Ajusta o tamanho do botão em telas pequenas */
+    }
 }

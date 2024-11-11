@@ -8,34 +8,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_senha = $_POST['user_senha'];
     $confirmar_senha = $_POST['confirmar_senha'];
     $sal_valor = $_POST['salario'];
-    $user_role = $_POST['role'];  // Novo campo para o papel do usuário (admin ou usuario_comum)
+    $user_role = $_POST['role'];
 
     // Verificar se a senha e a confirmação de senha são iguais
     if ($user_senha !== $confirmar_senha) {
-        echo "Erro: As senhas não coincidem.";
+        echo "<script>alert('Erro: As senhas não coincidem.'); window.location.href = 'register.php';</script>";
         exit;
     }
 
     // Hash da senha
     $hashed_senha = password_hash($user_senha, PASSWORD_DEFAULT);
 
-    // Inserir usuário com o papel definido
-    $query_usuario = "INSERT INTO usuario (nome, email, senha, role) VALUES ('$user_nome', '$user_email', '$hashed_senha', '$user_role')";
+    // Preparar a inserção do usuário com segurança contra SQL Injection
+    $query_usuario = $conn->prepare("INSERT INTO usuario (nome, email, senha, role) VALUES (?, ?, ?, ?)");
+    $query_usuario->bind_param("ssss", $user_nome, $user_email, $hashed_senha, $user_role);
 
-    if (mysqli_query($conn, $query_usuario)) {
-        // Inserir salário
-        $query_salario = "INSERT INTO salario (user_nome, sal_valor) VALUES ('$user_nome', '$sal_valor')";
-        if (!mysqli_query($conn, $query_salario)) {
-            echo "Erro ao cadastrar salário: " . mysqli_error($conn);
+    if ($query_usuario->execute()) {
+        // Preparar a inserção do salário
+        $query_salario = $conn->prepare("INSERT INTO salario (user_nome, sal_valor) VALUES (?, ?)");
+        $query_salario->bind_param("sd", $user_nome, $sal_valor);
+
+        if ($query_salario->execute()) {
+            // Redirecionar para a página de login
+            header("Location: login.php");
+            exit;
+        } else {
+            echo "Erro ao cadastrar salário: " . $query_salario->error;
             exit;
         }
-
-        // Redirecionar para a página de início
-        header("Location: login.php");
-        exit;
     } else {
-        echo "Erro ao cadastrar usuário: " . mysqli_error($conn);
+        echo "Erro ao cadastrar usuário: " . $query_usuario->error;
     }
+
+    $query_usuario->close();
+    $query_salario->close();
+    $conn->close();
 }
 ?>
 
@@ -78,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="form-group">
-                <label for="role" class="form-label">Papel:</label>
+                <label for="role" class="form-label">Permissão:</label>
                 <select id="role" name="role" class="form-input" required>
                     <option value="usuario_comum">Usuário Comum</option>
                     <option value="admin">Administrador</option>
