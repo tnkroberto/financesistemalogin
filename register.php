@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_senha = $_POST['user_senha'];
     $confirmar_senha = $_POST['confirmar_senha'];
     $sal_valor = $_POST['salario'];
+    $user_role = $_POST['role'];  // Novo campo para o papel do usuário (admin ou usuario_comum)
 
     // Verificar se a senha e a confirmação de senha são iguais
     if ($user_senha !== $confirmar_senha) {
@@ -18,8 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hash da senha
     $hashed_senha = password_hash($user_senha, PASSWORD_DEFAULT);
 
-    // Inserir usuário
-    $query_usuario = "INSERT INTO usuario (nome, email, senha) VALUES ('$user_nome', '$user_email', '$hashed_senha')";
+    // Inserir usuário com o papel definido
+    $query_usuario = "INSERT INTO usuario (nome, email, senha, role) VALUES ('$user_nome', '$user_email', '$hashed_senha', '$user_role')";
 
     if (mysqli_query($conn, $query_usuario)) {
         // Inserir salário
@@ -30,13 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Redirecionar para a página de início
-        header("Location: inicio.php");
+        header("Location: login.php");
         exit;
     } else {
         echo "Erro ao cadastrar usuário: " . mysqli_error($conn);
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -75,11 +77,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="number" id="salario" name="salario" class="form-input" required>
             </div>
 
+            <div class="form-group">
+                <label for="role" class="form-label">Papel:</label>
+                <select id="role" name="role" class="form-input" required>
+                    <option value="usuario_comum">Usuário Comum</option>
+                    <option value="admin">Administrador</option>
+                </select>
+            </div>
+
             <button type="submit" class="cadastro-button">Cadastrar</button>
         </form>
         <p class="login-link">Já tem uma conta? <a href="login.php" class="login-anchor">Faça login aqui</a>.</p>
     </div>
 </body>
 </html>
-
-

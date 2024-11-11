@@ -1,0 +1,70 @@
+/* user_dashboard.css */
+
+/* Estilo básico do corpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+/* Container principal do painel */
+.dashboard-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Título da página */
+.dashboard-container h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Descrição da página */
+.dashboard-container p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+/* Estilo dos botões */
+.btn-logout, .btn-back {
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    margin: 10px 5px;
+}
+
+.btn-logout:hover, .btn-back:hover {
+    background-color: #0056b3;
+}
+
+/* Para diferentes tamanhos de tela */
+@media (max-width: 600px) {
+    .dashboard-container {
+        padding: 20px;
+        width: 100%;
+    }
+    .dashboard-container h1 {
+        font-size: 20px;
+    }
+    .dashboard-container p {
+        font-size: 14px;
+    }
+}

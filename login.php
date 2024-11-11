@@ -1,9 +1,8 @@
 <?php
 session_start();
+include 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    include 'config.php';
-
     $user_email = $_POST['user_email'];
     $user_senha = $_POST['user_senha'];
 
@@ -17,7 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($user_senha, $user['senha'])) {
             // Senha correta, iniciar sessão
             $_SESSION['user_nome'] = $user['nome'];
-            $_SESSION['user_email'] = $user['email'];  // Salvar o e-mail também, caso necessário
+            $_SESSION['user_email'] = $user['email'];  
+            $_SESSION['user_role'] = $user['role'];  // Armazenar o papel do usuário
             header("Location: inicio.php");
             exit;
         } else {

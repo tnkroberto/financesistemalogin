@@ -1,10 +1,17 @@
-body{
-    background-color: black;
+body {
+    background-color: black; /* Cor de fundo da página: preta */
+    color: white; /* Cor do texto: branco */
+    display: flex; /* Usado para centralizar o conteúdo */
+    justify-content: center; /* Alinha o conteúdo horizontalmente no centro */
+    align-items: center; /* Alinha o conteúdo verticalmente no centro */
+    height: 100vh; /* Garante que o corpo ocupe toda a altura da janela */
+    margin: 0; /* Remove qualquer margem padrão */
+    text-align: center; /* Centraliza o texto */
 }
 
 .carousel-item img {
     height: 700px; /* Altura das imagens no carrossel */
-    object-fit: cover; /* Redimensionar e centralizar a imagem */
+    object-fit: cover; /* Redimensiona e centraliza as imagens */
 }
 
 .carousel-inner {
@@ -13,22 +20,42 @@ body{
 }
 
 .carousel-item {
-    text-align: center; /* Centralizar o texto */
+    text-align: center; /* Centraliza o texto do carrossel */
 }
 
 .carousel-caption {
     position: absolute; /* Posição absoluta para centralizar o conteúdo */
     top: 50%; /* Alinhar no meio verticalmente */
     left: 50%; /* Alinhar no meio horizontalmente */
-    transform: translate(-50%, -50%); /* Centralizar */
-    color: #fff; /* Cor do texto */
+    transform: translate(-50%, -50%); /* Centraliza exatamente no centro */
+    color: #20a8d8; /* Cor azul para a mensagem */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra do texto */
 }
 
 .carousel-caption h5 {
     font-size: 2.5rem; /* Tamanho da fonte do título */
+    color: #20a8d8; /* Cor azul para o título */
 }
 
 .carousel-caption p {
     font-size: 1.5rem; /* Tamanho da fonte do parágrafo */
+    color: #206ad8; /* Cor azul para o parágrafo */
+}
+
+.container {
+    background: #555555; /* Cor de fundo do quadrado (cinza) */
+    width: 450px; /* Largura do container */
+    padding: 1.5rem; /* Espaçamento interno */
+    margin: 50px auto; /* Margem automática para centralizar */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 20px 35px rgba(0, 0, 1, 0.9); /* Sombra ao redor do container */
+}
+
+.form-title {
+    font-size: 1.5rem; /* Tamanho da fonte do título */
+    font-weight: bold; /* Negrito */
+    text-align: center; /* Centraliza o texto */
+    padding: 1.3rem; /* Espaçamento interno */
+    margin-bottom: 0.4rem; /* Margem inferior */
+    color: #20a8d8; /* Cor azul para o título */
 }

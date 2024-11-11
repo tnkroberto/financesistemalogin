@@ -21,8 +21,12 @@ if (isset($_SESSION['user_nome'])) {
     <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body class="corpo"> 
+    <!-- Centralizando o botão de login -->
+    <div class="login-container">
+        <a href="login.php" class="login-btn">Login</a>
+    </div>
+
     <div class="logo"><img src="image/logo.png"></div>
-    <a href="login.php" class="login-btn">Login</a>
     <main class="banner">
         <article class="banner-paragrafo">
             <p class="paragrafo1">Construa seu futuro e descubra o segredo do sucesso agora</p>
